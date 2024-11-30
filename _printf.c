@@ -1,6 +1,10 @@
 #include <stdarg.h>
 #include <unistd.h>
-
+/*
+ * _printf - El print f
+ * @format: char puntero
+ * Return: count
+ */
 int _printf(const char *format, ...)
 {
 	int count = 0;
