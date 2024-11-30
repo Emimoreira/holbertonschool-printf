@@ -18,6 +18,13 @@ int _printf(const char *format, ...)
 	if (*ptr == '%')
 	{
 	ptr++;
+	if (*ptr == '\0')
+	{
+	write(1, "%", 1);
+	count++;
+	break;
+	}
+
 	if (*ptr == 'c')
 	{
 		char c = (char)va_arg(args, int);
