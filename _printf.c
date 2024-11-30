@@ -1,10 +1,6 @@
 #include <stdarg.h>
 #include <unistd.h>
-/*
- * _printf - El print f
- * @format: char puntero
- * Return: count
- */
+
 int _printf(const char *format, ...)
 {
 	int count = 0;
@@ -12,24 +8,25 @@ int _printf(const char *format, ...)
 	const char *ptr = format;
 
 	va_start(args, format);
+
 	if (*ptr == '%' && *(ptr + 1) == '\0')
 	return 0;
-
 
 	while (*ptr)
 	{
 	if (*ptr == '%')
 	{
 	ptr++;
-	if (*ptr == '\0')
-	{
-	write(1, "%", 1);
-	count++;
-	break;
-	}
 
-	if (*ptr == 'c')
-	{
+		if (*ptr == '\0')
+		{
+		write(1, "%", 1);
+		count++;
+		break;
+		}
+
+		if (*ptr == 'c')
+		{
 		char c = (char)va_arg(args, int);
 		write(1, &c, 1);
 		count++;
@@ -44,7 +41,7 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			while (*str)
+		while (*str)
 			{
 			write(1, str, 1);
 			str++;
@@ -59,9 +56,9 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			write(1, "%", 1);
-			write(1, ptr, 1);
-			count += 2;
+		write(1, "%", 1);
+		write(1, ptr, 1);
+		count += 2;
 		}
 	}
 	else
@@ -69,8 +66,11 @@ int _printf(const char *format, ...)
 		write(1, ptr, 1);
 		count++;
 	}
+
 	ptr++;
 	}
+
 	va_end(args);
 	return (count);
 }
+
