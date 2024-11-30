@@ -12,6 +12,9 @@ int _printf(const char *format, ...)
 	const char *ptr = format;
 
 	va_start(args, format);
+	if (*ptr == '%' && *(ptr + 1) == '\0')
+	return 0;
+
 
 	while (*ptr)
 	{
