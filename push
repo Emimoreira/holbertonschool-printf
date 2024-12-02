@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m Cambio_arreglando_lo_que_se_rompio_antes_correcciones_varias
+git commit -m betty_friendly_code
 git push

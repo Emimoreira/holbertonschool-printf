@@ -10,23 +10,14 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
-	int count = 0, i = 0, j, found;
+	int count = 0, i = 0, j, found, num_specifiers = 3;
 
 	specifier_t specifiers[] = {
-		{'c', print_char},
-		{'s', print_str},
-		{'%', print_porcentaje},
+		{'c', print_char}, {'s', print_str}, {'%', print_porcentaje},
 	};
-
-	int num_specifiers = 3;
-
 	va_start(args, format);
-	
 	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
-	{
 		return (-1);
-	}
-
 	while (format && format[i])
 	{
 		if (format[i] == '%')
@@ -42,7 +33,6 @@ int _printf(const char *format, ...)
 					break;
 				}
 			}
-			
 			if (!found)
 			{
 				_putchar('%');
@@ -57,7 +47,6 @@ int _printf(const char *format, ...)
 		}
 		i++;
 	}
-
 	va_end(args);
-	return count;
+	return (count);
 }
