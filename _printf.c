@@ -1,72 +1,63 @@
-#include <stdarg.h>
-#include <unistd.h>
+#include "main.h"
 
-int _printf(const char *format, ...) 
+/**/
+
+int _printf(const char *format, ...)
 {
-	int count = 0;
+	especificador_t especificador[] = {
+		{'c', print_char},
+		{'s', print_str},
+		{'%', print_%},
+		{0, NULL}
+	};
+
 	va_list args;
-	const char *ptr = format;
+	int i, count, j;
+	char current;
+
+	i = 0;
+	count = 0;
 
 	if (!format)
-        {
-                return -1;
-        }
+	{
+		return (-1);
+	}
 
 	va_start(args, format);
 
-	while (*ptr)
+	while (format[i])
 	{
-		if (*ptr == '%')
+		if (format[i] == '%')
 		{
-			ptr++;
-			if (*ptr == '\0')
+			i++;
+			current = format[i];
+			j = 0;
+			
+			while (especificador[j].spec)
 			{
-				break;
+				if (current == especificador[j].spec)
+				{
+					count += especificador[j].func(args);
+					break;
+				}
+				j++;
 			}
-			else if (*ptr == '%')
+
+			if (!especificador[j].spec)
 			{
 				write(1, "%", 1);
-				count++;
-			}
-			else if (*ptr == 'c')
-			{
-				char c = (char)va_arg(args, int);
-				write(1, &c, 1);
-				count++;
-			}
-			else if (*ptr == 's')
-			{
-				char *str = va_arg(args, char*);
-				if (str == NULL)
-				{
-					write(1, "(null)", 6);
-					count += 6;
-				}
-				else
-				{
-					while (*str)
-					{
-						write(1, str, 1);
-						str++;
-						count++;
-					}
-				}
-			}
-			else
-			{
-				write(1, "%", 1);
-				write(1, ptr, 1);
+				write(1, &current, 1);
 				count += 2;
 			}
 		}
 		else
 		{
-			write(1, ptr, 1);
+			write(1, &format[i], 1);
 			count++;
 		}
-		ptr++;
+		i++;
 	}
 
-va_end(args);
-return (count);
+	va_end(args);
+	return count;
 }
