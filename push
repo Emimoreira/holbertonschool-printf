@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m Prueba_%_
+git commit -m Cambio_arreglando_lo_que_se_rompio_antes_correcciones_varias
 git push

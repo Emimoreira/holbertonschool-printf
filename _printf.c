@@ -1,56 +1,57 @@
+#include <stdarg.h>
 #include "main.h"
 
 /**
  * _printf - Imita el comportamiento de printf
- * @format: Cadena con el formato de impresión
- * Return: Número de caracteres impresos o -1 si hay un error
+ * @format: Cadena con el formato de impresió
+ * Return: Númro de caracteres impresos o -1 si hay un error
  */
 
-int _printf(const char * const format, ...)
+int _printf(const char *format, ...)
 {
-	especificador p[] = {
-		{"%s", print_str}, {"%c", print_char},
-		{"%%", print_porcentaje},
+	va_list args;
+	int count = 0, i = 0, j, found;
+
+	specifier_t specifiers[] = {
+		{'c', print_char},
+		{'s', print_str},
+		{'%', print_porcentaje},
 	};
 
-	va_list args;
-	int i = 0, j, length = 0;
-	int size = 2;
+	int num_specifiers = 3;
 
-	if (format == NULL)
-	{
-		return (-1);
-	}
-	
 	va_start(args, format);
-	
-	while (format[i] != '\0')
+	while (format && format[i])
 	{
 		if (format[i] == '%')
 		{
-			for (j = 0; j < size; j++)
+			i++;
+			found = 0;
+			for (j = 0; j < num_specifiers; j++)
 			{
-				if (p[j].ph[0] == format[i] && p[j].ph[1] == format[i + 1])
+				if (format[i] == specifiers[j].spec)
 				{
-					length += p[j].function(args);
-					i += 2;
+					count += specifiers[j].func(args);
+					found = 1;
 					break;
 				}
 			}
-			if (j == size)
+			
+			if (!found)
 			{
+				_putchar('%');
 				_putchar(format[i]);
-				length++;
-				i++;
+				count += 2;
 			}
 		}
 		else
 		{
 			_putchar(format[i]);
-			length++;
-			i++;
+			count++;
 		}
+		i++;
 	}
+
 	va_end(args);
-	return (length);
+	return count;
 }

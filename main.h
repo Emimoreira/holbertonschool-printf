@@ -6,11 +6,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-typedef struct format
-{
-	char *ph;
-	int (*function)();
-} especificador;
+typedef struct specifier {
+	char spec;
+	int (*func)(va_list);
+} specifier_t;
 
 int _printf(const char *format, ...);
 int _putchar(char c);
