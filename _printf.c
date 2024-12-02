@@ -10,10 +10,10 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
-	int count = 0, i = 0, j, found, num_specifiers = 3;
+	int count = 0, i = 0, j, found, num_specifiers = 5;
 
 	specifier_t specifiers[] = {
-		{'c', print_char}, {'s', print_str}, {'%', print_porcentaje},
+		{'c', print_char}, {'s', print_str}, {'%', print_porcentaje}, {'d', print_decimal}, {'i', print_integer},
 	};
 	va_start(args, format);
 	if (format == NULL || (format[0] == '%' && format[1] == '\0'))

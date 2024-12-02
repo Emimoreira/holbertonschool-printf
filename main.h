@@ -6,7 +6,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-typedef struct specifier {
+/**
+ * struct specifier - asocia especificadores de formato con funciones
+ * @spec: El especificador de formato
+ * @func: Un puntero a una función que maneja el tipo de formato correspondien
+ */
+
+typedef struct specifier
+{
 	char spec;
 	int (*func)(va_list);
 } specifier_t;
@@ -18,5 +25,7 @@ int print_str(va_list val);
 int _strlen(char *s);
 int _strlenc(const char *s);
 int print_porcentaje(va_list args);
+int print_integer(va_list args);
+int print_decimal(va_list args);
 
 #endif
