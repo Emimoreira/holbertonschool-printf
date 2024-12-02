@@ -1,63 +1,56 @@
 #include "main.h"
 
-/**/
+/**
+ * _printf - Imita el comportamiento de printf
+ * @format: Cadena con el formato de impresión
+ * Return: Número de caracteres impresos o -1 si hay un error
+ */
 
-int _printf(const char *format, ...)
+int _printf(const char * const format, ...)
 {
-	especificador_t especificador[] = {
-		{'c', print_char},
-		{'s', print_str},
-		{'%', print_porcentaje},
-		{0, NULL}
+	especificador p[] = {
+		{"%s", print_str}, {"%c", print_char},
+		{"%%", print_porcentaje},
 	};
 
 	va_list args;
-	int i, count, j;
-	char current;
+	int i = 0, j, length = 0;
+	int size = 2;
 
-	i = 0;
-	count = 0;
-
-	if (!format)
+	if (format == NULL)
 	{
 		return (-1);
 	}
-
+	
 	va_start(args, format);
-
-	while (format[i])
+	
+	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
-			i++;
-			current = format[i];
-			j = 0;
-			
-			while (especificador[j].spec)
+			for (j = 0; j < size; j++)
 			{
-				if (current == especificador[j].spec)
+				if (p[j].ph[0] == format[i] && p[j].ph[1] == format[i + 1])
 				{
-					count += especificador[j].func(args);
+					length += p[j].function(args);
+					i += 2;
 					break;
 				}
-				j++;
 			}
-
-			if (!especificador[j].spec)
+			if (j == size)
 			{
-				write(1, "%", 1);
-				write(1, &current, 1);
-				count += 2;
+				_putchar(format[i]);
+				length++;
+				i++;
 			}
 		}
 		else
 		{
-			write(1, &format[i], 1);
-			count++;
+			_putchar(format[i]);
+			length++;
+			i++;
 		}
-		i++;
 	}
-
 	va_end(args);
-	return count;
+	return (length);
 }

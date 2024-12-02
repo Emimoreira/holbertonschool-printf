@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m Aloha
+git commit -m Prueba_%_
 git push
