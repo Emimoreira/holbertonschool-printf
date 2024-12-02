@@ -5,7 +5,7 @@
  * Return: 1 porque es el "largo de la cuestion"
  */
 
-int print%(void)
+int print_porcentaje(void)
 {
 	_putchar('%');
 	return (1);

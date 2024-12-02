@@ -7,7 +7,7 @@ int _printf(const char *format, ...)
 	especificador_t especificador[] = {
 		{'c', print_char},
 		{'s', print_str},
-		{'%', print_%},
+		{'%', print_porcentaje},
 		{0, NULL}
 	};
 

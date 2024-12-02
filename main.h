@@ -17,6 +17,6 @@ int print_char(va_list val);
 int print_str(va_list val);
 int _strlen(char *s);
 int _strlenc(const char *s);
-int print%(void);
+int print_porcentaje(void);
 
 #endif
