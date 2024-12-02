@@ -8,44 +8,40 @@
 int print_integer(va_list args)
 {
 	int n = va_arg(args, int);
-	int count = 0, num, last_digit, digit, exp = 1;
+	int num, last = n % 10, digit, exp = 1;
+	int  i = 1;
 
-	last_digit = n % 10;
-	num = n / 10;
+	n = n / 10;
+	num = n;
 
-	if (n < 0)
-
+	if (last < 0)
 	{
 		_putchar('-');
 		num = -num;
 		n = -n;
-		last_digit = -last_digit;
-		count++;
+		last = -last;
+		i++;
 	}
-
 	if (num > 0)
 	{
 		while (num / 10 != 0)
 		{
-			exp *= 10;
-			num /= 10;
+			exp = exp * 10;
+			num = num / 10;
 		}
-
 		num = n;
 		while (exp > 0)
 		{
 			digit = num / exp;
 			_putchar(digit + '0');
-			num -= digit * exp;
-			exp /= 10;
-			count++;
+			num = num - (digit * exp);
+			exp = exp / 10;
+			i++;
 		}
 	}
+	_putchar(last + '0');
 
-	_putchar(last_digit + '0');
-	count++;
-
-	return (count);
+	return (i);
 }
 
 /**
@@ -57,41 +53,38 @@ int print_integer(va_list args)
 int print_decimal(va_list args)
 {
 	int n = va_arg(args, int);
-	int count = 0, num, last_digit, digit, exp = 1;
+	int num, last = n % 10, digit, exp = 1;
+	int  i = 1;
 
-	last_digit = n % 10;
-	num = n / 10;
+	n = n / 10;
+	num = n;
 
-	if (n < 0)
+	if (last < 0)
 	{
 		_putchar('-');
 		num = -num;
 		n = -n;
-		last_digit = -last_digit;
-		count++;
+		last = -last;
+		i++;
 	}
-
 	if (num > 0)
 	{
 		while (num / 10 != 0)
 		{
-			exp *= 10;
-			num /= 10;
+			exp = exp * 10;
+			num = num / 10;
 		}
-
 		num = n;
 		while (exp > 0)
 		{
 			digit = num / exp;
 			_putchar(digit + '0');
-			num -= digit * exp;
-			exp /= 10;
-			count++;
+			num = num - (digit * exp);
+			exp = exp / 10;
+			i++;
 		}
 	}
+	_putchar(last + '0');
 
-	_putchar(last_digit + '0');
-	count++;
-
-	return (count);
+	return (i);
 }
